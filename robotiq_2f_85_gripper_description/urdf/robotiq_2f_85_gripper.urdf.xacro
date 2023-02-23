@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<robot name="robotiq_2f_85_gripper" xmlns:xacro="http://wiki.ros.org/xacro">
+
+    <xacro:property name="M_PI" value="3.1415926535897931" />
+    <xacro:include filename="$(find robotiq_2f_85_gripper_description)/urdf/robotiq_2f_85_macro.urdf.xacro" />
+  
+    <xacro:macro name="robotiq_2f_85_gripper" params="prefix parent">
+
+        <joint name="${prefix}_base_joint" type="fixed">
+            <origin xyz="0 0.0 0" rpy="0 0 0"/>
+            <parent link="${parent}" />
+            <child link="${prefix}_base_link" />
+            <axis xyz="1 0 0" />
+        </joint>
+
+        <link name="${prefix}_base_link">
+            <inertial>
+                <mass value="0.1" />
+                <origin xyz="0 0 0" />
+                <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+            </inertial>
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                <mesh filename="package://robotiq_2f_85_gripper_description/meshes/collision/robotiq_arg2f_base_link.stl" />
+                </geometry>
+                <material name="">
+                <color rgba="0.1 0.1 0.1 1" />
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                <mesh filename="package://robotiq_2f_85_gripper_description/meshes/collision/robotiq_arg2f_base_link.stl" />
+                </geometry>
+            </collision>
+        </link>
+
+        <xacro:finger_links prefix="${prefix}_" fingerprefix="left" stroke="85"/>
+        <xacro:finger_links prefix="${prefix}_" fingerprefix="right" stroke="85"/>
+        <xacro:finger_joint prefix="${prefix}_"/>
+        <xacro:right_outer_knuckle_joint prefix="${prefix}_"/>
+        <xacro:robotiq_arg2f_transmission prefix="${prefix}_"/>
+
+
+    </xacro:macro>
+
+
+</robot>

@@ -4,10 +4,10 @@
     <xacro:property name="M_PI" value="3.1415926535897931" />
     <xacro:include filename="$(find robotiq_2f_85_gripper_description)/urdf/robotiq_2f_85_macro.urdf.xacro" />
   
-    <xacro:macro name="robotiq_2f_85_gripper" params="prefix parent">
+    <xacro:macro name="robotiq_2f_85_gripper" params="prefix parent *origin">
 
         <joint name="${prefix}_base_joint" type="fixed">
-            <origin xyz="0 0.0 0" rpy="0 0 0"/>
+            <xacro:insert_block name="origin"/>
             <parent link="${parent}" />
             <child link="${prefix}_base_link" />
             <axis xyz="1 0 0" />
